@@ -1,0 +1,62 @@
+{
+  "Burguers": [
+    {
+      "id": 2,
+      "name": "Classic Bacon Double",
+      "description": "Dois blends de carne bovina, queijo cheddar derretido, bacon crocante, tomate e alface.",
+      "price": 32.90,
+      "image": "/images/burguer.png",
+      "banner": "/images/bannerClassicBacon.png",
+      "category": "Burguers"
+    },
+    {
+      "id": 3,
+      "name": "Empire 4.0",
+      "description": "O gigante da casa: 4 blends de carne, camadas generosas de queijo e muito bacon.",
+      "price": 55.90,
+      "image": "/images/Empire4.0.png",
+      "banner": "/images/bannerEmpire4.png",
+      "category": "Burguers"
+    },
+    {
+      "id": 4,
+      "name": "Chicken Crispy Burger",
+      "description": "Frango empanado super crocante, queijo, tomate e molho especial no pão brioche.",
+      "price": 28.90,
+      "image": "/images/burguerNugget.png",
+      "banner": "/images/bannerChickenCrispyBurger.png",
+      "category": "Burguers"
+    },
+    {
+      "id": 5,
+      "name": "Onion BBQ Burger",
+      "description": "Blend duplo, anéis de cebola empanados, bacon e molho barbecue.",
+      "price": 36.90,
+      "image": "/images/burguerOnion.png",
+      "banner": "/images/bannerOnionBBQ.png",
+      "category": "Burguers"
+    }
+  ],
+  "sides": [
+    {
+      "id": 1,
+      "name": "Batata Frita Especial",
+      "description": "Batatas crocantes temperadas com sal marinho e alecrim fresco.",
+      "price": 18.90,
+      "image": "/images/batataFrita.png",
+      "banner": "/images/bannerBatata.png",
+      "category": "Acompanhamento"
+    }
+  ],
+  "combos": [
+    {
+      "id": 7,
+      "name": "Combo Mega Onion",
+      "description": "Onion BBQ Burger duplo, batata frita e Coca-Cola gelada.",
+      "price": 48.90,
+      "image": "/images/comboBurguer.png",
+      "banner": "/images/bannerComboMegaOnion.png",
+      "category": "Combos"
+    }
+  ]
+}
