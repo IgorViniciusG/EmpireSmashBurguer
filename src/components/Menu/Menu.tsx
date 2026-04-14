@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { CategoryTabs } from './CategoryTabs';
 import { ProductCard } from './ProductCard';
-import { getMenuItens } from '../../services/getMenuItens';
+import { getMenuItems } from '../../services/getMenuItems';
 import type { ProductType } from '../../types/ProductType';
 
 export function Menu() {
@@ -11,7 +11,7 @@ export function Menu() {
 
   useEffect(() => {
     async function loadProducts() {
-      const data = await getMenuItens();
+      const data = await getMenuItems();
       setProducts(data);
     }
 

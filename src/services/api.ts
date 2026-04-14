@@ -1,1 +1,1 @@
-export const API_URL = 'https://empiresmashburguer.onrender.com';
+export const API_URL = 'http://localhost:3001';

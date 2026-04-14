@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "start": "json-server --watch db.json --port $PORT --host 0.0.0.0",
+    "start": "json-server --watch db.json --port 3001",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -15,7 +15,9 @@
     "lucide-react": "^0.577.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router": "^7.13.1"
+    "react-router": "^7.13.1",
+    "sonner": "^2.0.7",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

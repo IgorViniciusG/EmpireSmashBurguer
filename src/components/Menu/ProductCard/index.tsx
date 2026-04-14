@@ -16,7 +16,7 @@ export function ProductCard({ item }: ProductCardProps) {
           <p className="text-sm mt-1">
             A partir de{' '}
             <span className="text-black font-semibold text-base">
-              R$ {item.price}
+              R$ {item.price.toFixed(2)}
             </span>
           </p>
         </div>

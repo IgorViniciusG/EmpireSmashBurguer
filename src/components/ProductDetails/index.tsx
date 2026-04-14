@@ -1,19 +1,34 @@
 import { ItemCustomizer } from './ItemCustomizer';
 import { PurchaseSummary } from './PurchaseSummary';
 import { useEffect, useState } from 'react';
-import { getMenuItens } from '../../services/getMenuItens';
-import type { ProductType } from '../../types/ProductType';
+import { getMenuItems } from '../../services/getMenuItems';
 import { useParams } from 'react-router';
 import { Container } from '../Container';
 
 import type { ExtrasType } from '../../types/ExtrasType';
 import type { DonenessType } from '../../types/DonenessType';
 
+import { Bag } from '../Bag';
+import { useBagContext } from '../../contexts/BagContext/hooks';
+
 export function ProductDetails() {
-  const [product, setProduct] = useState<ProductType | null>(null);
-  const [doneness, setDoneness] = useState<DonenessType>();
-  const [extra, setExtra] = useState<ExtrasType[]>([]);
   const { id } = useParams();
+  const { state } = useBagContext();
+
+  const bagItem = state.find((item) => String(item.cartItemId) === String(id));
+  const isEditing = !!bagItem;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [fetchedProduct, setFetchedProduct] = useState<any>(null);
+
+  const product = bagItem ? bagItem : fetchedProduct;
+
+  const [doneness, setDoneness] = useState<DonenessType | null | undefined>(
+    bagItem ? bagItem.doneness : null,
+  );
+  const [extra, setExtra] = useState<ExtrasType[] | undefined>(
+    bagItem ? bagItem.extras : [],
+  );
 
   function handleDonenessChange(onChangeDoneness: DonenessType) {
     setDoneness(onChangeDoneness);
@@ -23,39 +38,57 @@ export function ProductDetails() {
     setExtra(onChangeExtras);
   }
 
+  const [currentId, setCurrentId] = useState(id);
+  if (id !== currentId) {
+    setCurrentId(id);
+    setDoneness(bagItem ? bagItem.doneness : null);
+    setExtra(bagItem ? bagItem.extras : []);
+  }
+
   useEffect(() => {
-    async function getProduct() {
-      const allItens = await getMenuItens();
-      const productFiltered = allItens?.find((item) => Number(id) === item.id);
-      setProduct(productFiltered || null);
+    if (!bagItem) {
+      async function getProduct() {
+        const allItens = await getMenuItems();
+        const productFiltered = allItens?.find(
+          (item) => Number(id) === item.id,
+        );
+        setFetchedProduct(productFiltered || null);
+      }
+      getProduct();
     }
+  }, [id, bagItem]);
 
-    getProduct();
-  }, [id]);
-
-  if (!product)
+  if (!product) {
     return (
-      <h1 className="flex justify-center items-center text-4xl text-red-800 h-full w-full my-65">
-        Produto não encontrado
-      </h1>
+      <div className="flex items-center justify-center h-screen">
+        <h1 className="text-4xl text-red-800">Produto não encontrado</h1>
+      </div>
     );
+  }
 
   return (
     <Container>
+      <Bag />
       <div className="grid grid-cols-1 md:grid-cols-12 my-5">
         <div className="col-span-1 md:col-span-8">
           <ItemCustomizer
             productInfo={product}
             onChangeDoneness={handleDonenessChange}
             onChangeExtras={handleExtrasChange}
+            isEditing={isEditing}
+            doneness={doneness!}
+            selectedExtras={extra!}
+            bagItem={bagItem!}
           />
         </div>
 
         <div className="col-span-1 md:col-span-4 h-fit sticky top-37 my-12">
           <PurchaseSummary
-            productInfo={product!}
+            bagItem={bagItem!}
+            productInfo={product}
             doneness={doneness!}
             selectedExtras={extra!}
+            isEditing={isEditing}
           />
         </div>
       </div>

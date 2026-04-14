@@ -7,6 +7,7 @@ export function MainRouter() {
   return (
     <BrowserRouter>
       <Header />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path={`/Produto/:id`} element={<ProductPage />} />
