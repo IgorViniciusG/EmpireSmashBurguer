@@ -1,15 +1,13 @@
-
 import db from '../db.json';
 
-
 export const getBurguers = async () => {
-  return db.Burguers;
+  return db.Burguers as any;
 };
 
 export const getCombos = async () => {
-  return db.combos; 
+  return db.combos as any;
 };
 
 export const getSides = async () => {
-  return db.sides;
-}
+  return db.sides as any;
+};
