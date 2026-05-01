@@ -1,12 +1,10 @@
 import { Pen, ShoppingBag, Trash2, X } from 'lucide-react';
 import { useBagContext } from '../../../contexts/BagContext/hooks';
-import { useOrderContext } from '../../../contexts/OrderContext/hooks';
-import type { OrderType } from '../../../types/OrderType';
 
-import { v4 as uuidv4 } from 'uuid';
-import { toast } from 'sonner';
 import type { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router';
+import { useCheckout } from '../../../hooks/useCheckout';
+
 
 interface BagProps {
   isOpen: boolean;
@@ -15,32 +13,10 @@ interface BagProps {
 }
 
 export function BagDrawer({ isOpen, onClose, setIsOpen }: BagProps) {
-  const { state, updateQuantity, removeFromBag, clearBag } = useBagContext();
-  const { addOrder } = useOrderContext();
+  const { state, updateQuantity, removeFromBag } = useBagContext();
+  const { handleFinalizeOrder } = useCheckout();
 
   if (!isOpen) return null;
-
-  const totalPrice = state
-    .reduce((acc, value) => acc + value.price * value.quantity, 5.9)
-    .toFixed(2);
-
-  const date = new Date();
-  const formattedDate: string = date.toLocaleString();
-
-  const orderItens: OrderType = {
-    id: uuidv4().slice(0, 5).toUpperCase(),
-    itens: state,
-    total: Number(totalPrice),
-    status: 'pendente',
-    createdAt: formattedDate,
-  };
-
-  const finishOrder = () => {
-    clearBag();
-    addOrder(orderItens);
-    toast.success('Seu pedido foi finalizado!');
-    setIsOpen(false);
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -186,7 +162,7 @@ export function BagDrawer({ isOpen, onClose, setIsOpen }: BagProps) {
                 </span>
               </div>
               <button
-                onClick={() => finishOrder()}
+                onClick={handleFinalizeOrder}
                 className="w-full bg-yellow-400 hover:bg-yellow-500 transition-colors text-black font-bold py-4 rounded-lg mt-2"
               >
                 Finalizar pedido

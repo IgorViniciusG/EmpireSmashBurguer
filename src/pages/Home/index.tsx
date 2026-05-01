@@ -7,7 +7,7 @@ import { StoreInfos } from '../../components/StoreInfos/StoreInfos';
 
 export function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="pt-5 pb-10 bg-gray-50">
       <Container>
         <div className="lg:hidden">
           <Bag />

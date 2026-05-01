@@ -4,29 +4,11 @@ import { Container } from '../Container';
 import { useBagContext } from '../../contexts/BagContext/hooks';
 import { toast } from 'sonner';
 import { Link } from 'react-router';
-import { useOrderContext } from '../../contexts/OrderContext/hooks';
-import type { OrderType } from '../../types/OrderType';
-
-import { v4 as uuidv4 } from 'uuid';
+import { useCheckout } from '../../hooks/useCheckout';
 
 export function CartSummary() {
-  const { state, removeFromBag, clearBag } = useBagContext();
-  const { addOrder } = useOrderContext();
-
-  const totalPrice = state
-    .reduce((acc, value) => acc + value.quantity * value.price, 5.9)
-    .toFixed(2);
-
-  const date = new Date();
-  const formattedDate: string = date.toLocaleString();
-
-  const orderItens: OrderType = {
-    id: uuidv4().slice(0, 5).toUpperCase(),
-    itens: state,
-    total: Number(totalPrice),
-    status: 'pendente',
-    createdAt: formattedDate,
-  };
+  const { state, removeFromBag } = useBagContext();
+  const { handleFinalizeOrder } = useCheckout();
 
   return (
     <Container>
@@ -175,11 +157,7 @@ export function CartSummary() {
                 />
               </div>
               <button
-                onClick={() => {
-                  toast.success('Pedido Finalizado com sucesso');
-                  addOrder(orderItens);
-                  clearBag();
-                }}
+                onClick={handleFinalizeOrder}
                 className="bg-amber-400 py-3 rounded-lg cursor-pointer w-full"
               >
                 Finalizar Pedido

@@ -2,6 +2,13 @@ import { Routes, Route, BrowserRouter } from 'react-router';
 import { Home } from '../../pages/Home';
 import { ProductPage } from '../../pages/ProductPage';
 import { Header } from '../../components/Header';
+import { OrdersPage } from '../../pages/OrdersPage';
+import { OrderDetailsPage } from '../../pages/OrderDetailsPage';
+import { Register } from '../../pages/Register';
+import { Login } from '../../pages/Login';
+import { ProtectedRoutes } from '../../utils/ProtectedRoutes';
+import { AddressPage } from '../../pages/AddressPage';
+import { PerfilPage } from '../../pages/PerfilPage';
 
 export function MainRouter() {
   return (
@@ -11,10 +18,14 @@ export function MainRouter() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path={`/Produto/:id`} element={<ProductPage />} />
-        <Route path="/login" />
-        <Route path="/register" />
-        <Route path="/cart" />
-        <Route path="/product" />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/Pedidos" element={<OrdersPage />} />
+          <Route path="/Pedidos/:id" element={<OrderDetailsPage />} />
+          <Route path="/Endereços" element={<AddressPage />} />
+        </Route>
+        <Route path="/Perfil" element={<PerfilPage />} />
       </Routes>
     </BrowserRouter>
   );
