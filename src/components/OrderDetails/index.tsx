@@ -58,8 +58,11 @@ export function OrderDetails() {
 
   return (
     <Container>
-      <Link to={'/Pedidos'} className="flex justify-start items-center mt-5 gap-1 text-gray-500 hover:text-black transition-colors ease-in-out">
-        <ArrowLeft size={20}/>
+      <Link
+        to={'/Pedidos'}
+        className="flex justify-start items-center mt-5 gap-1 text-gray-500 hover:text-black transition-colors ease-in-out"
+      >
+        <ArrowLeft size={20} />
         <p>Voltar aos Pedidos</p>
       </Link>
 
@@ -74,7 +77,7 @@ export function OrderDetails() {
         <div className="lg:col-span-2 flex flex-col gap-6">
           <Card className="flex flex-col">
             <h1 className="font-bold text-xl">Status do Pedido</h1>
-            <OrderTracker />
+            <OrderTracker currentStatus={order?.status} />
           </Card>
 
           <Card className="flex flex-col h-full">

@@ -1,5 +1,4 @@
 import { Card } from '../../Card';
-import { Container } from '../../Container';
 
 import type { BagItensType } from '../../../types/BagItensType';
 import type { DonenessType } from '../../../types/DonenessType';
@@ -77,8 +76,8 @@ export function PurchaseSummary({
   }
 
   return (
-    <Container>
-      <Card className="flex-col bg-green-100">
+    <div className="sticky bottom-4 z-40">
+      <Card className="flex-col bg-white shadow-xl md:shadow-md border border-gray-100 md:border-none">
         <h1 className="font-bold">Adicionar ao pedido</h1>
         <div className="flex flex-col gap-2 my-3">
           <p className="text-sm">{productInfo?.name}</p>
@@ -110,12 +109,12 @@ export function PurchaseSummary({
         )}
 
         <hr className="text-gray-400 my-2" />
-        <div className="my-2">
-          <h2 className="text-xs mb-2">Quantidade</h2>
+        <div className="my-2 flex justify-between items-center">
+          <h2 className="text-xs">Quantidade</h2>
 
-          <div className="flex gap-5">
+          <div className="flex gap-5 items-center font-bold">
             <button
-              className="border border-gray-400 rounded-full p-3 h-5 w-5 flex justify-center items-center"
+              className="border border-gray-400 text-gray-600 hover:bg-gray-100 transition-colors rounded-full p-3 h-8 w-8 flex justify-center items-center"
               onClick={() => {
                 setQuantity(Math.max(1, quantity - 1));
               }}
@@ -124,13 +123,14 @@ export function PurchaseSummary({
             </button>
             {quantity}
             <button
-              className="border border-gray-400 rounded-full p-3 h-5 w-5 flex justify-center items-center"
+              className="border border-gray-400 text-gray-600 hover:bg-gray-100 transition-colors rounded-full p-3 h-8 w-8 flex justify-center items-center"
               onClick={() => setQuantity(quantity + 1)}
             >
               +
             </button>
           </div>
         </div>
+
         {isEditing ? (
           <button
             onClick={() => {
@@ -142,26 +142,29 @@ export function PurchaseSummary({
               updateItem(itemUpdated);
               setUpdated();
             }}
-            className="bg-amber-400 my-5 py-5 px-10 flex flex-col rounded-full cursor-pointer"
+            className="bg-amber-400 hover:bg-amber-500 transition-colors mt-5 py-3 px-6 w-full flex flex-col items-center justify-center rounded-full cursor-pointer shadow-sm"
           >
-            <span className="text-sm">Editar Pedido</span>
-            <span className="text-xs"> Total: R$ {totalPrice.toFixed(2)}</span>
+            <span className="text-base font-bold">Editar Pedido</span>
+            <span className="text-xs font-medium">
+              Total: R$ {totalPrice.toFixed(2)}
+            </span>
           </button>
         ) : (
           <button
             onClick={() => {
               if (!doneness) return toast.error('Selecione o ponto da Carne');
-
               addToBag(items);
               setAdded();
             }}
-            className="bg-amber-400 my-5 py-5 px-10 flex flex-col rounded-full cursor-pointer"
+            className="bg-amber-400 hover:bg-amber-500 transition-colors mt-5 py-3 px-6 w-full flex flex-col items-center justify-center rounded-full cursor-pointer shadow-sm"
           >
-            <span className="text-sm">Adicionar à Sacola</span>
-            <span className="text-xs"> Total: R$ {totalPrice.toFixed(2)}</span>
+            <span className="text-base font-bold">Adicionar à Sacola</span>
+            <span className="text-xs font-medium">
+              Total: R$ {totalPrice.toFixed(2)}
+            </span>
           </button>
         )}
       </Card>
-    </Container>
+    </div>
   );
 }

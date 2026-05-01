@@ -1,6 +1,5 @@
 import { Link } from 'react-router';
 import { ArrowLeft } from 'lucide-react';
-import { Container } from '../../Container';
 import { Card } from '../../Card';
 import { extras, meatDoneness } from '../../../constants/productOptions';
 import { useState } from 'react';
@@ -46,7 +45,7 @@ export function ItemCustomizer({
   }
 
   return (
-    <Container>
+    <div>
       <Link
         to="/"
         className="flex items-center gap-2 text-sm my-5 hover:text-amber-500 transition-colors"
@@ -162,6 +161,6 @@ export function ItemCustomizer({
               ))}
         </form>
       </Card>
-    </Container>
+    </div>
   );
 }

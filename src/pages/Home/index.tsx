@@ -1,7 +1,6 @@
 import { Bag } from '../../components/Bag';
 import { CartSummary } from '../../components/CartSummary';
 import { Container } from '../../components/Container';
-
 import { Menu } from '../../components/Menu/Menu';
 import { StoreInfos } from '../../components/StoreInfos/StoreInfos';
 
@@ -13,12 +12,12 @@ export function Home() {
           <Bag />
         </div>
         <StoreInfos />
-        <div className="grid grid-cols-12 gap-8 w-full">
-          <div className="col-span-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 w-full">
+          <div className="md:col-span-8 w-full">
             <Menu />
           </div>
 
-          <div className="col-span-4 h-fit sticky top-37 hidden md:block">
+          <div className="md:col-span-4 h-fit sticky top-37 hidden md:block">
             <CartSummary />
           </div>
         </div>

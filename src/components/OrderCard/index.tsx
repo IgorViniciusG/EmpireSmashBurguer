@@ -1,6 +1,8 @@
 import { Link } from 'react-router';
 import type { OrderType } from '../../types/OrderType';
 import { Card } from '../Card';
+import { useEffect } from 'react';
+import { updateOrderStatus } from '../../services/orderServices';
 
 interface OrderProps {
   order: OrderType;
@@ -23,10 +25,33 @@ const statusLabels = {
 };
 
 export function OrderCard({ order }: OrderProps) {
+  const { id, status } = order;
+
+  useEffect(() => {
+  
+    if (!status || status === 'entregue' || status === 'cancelado') return;
+
+    const timings = {
+      pendente: { next: 'preparando', time: 5000 },
+      preparando: { next: 'entregando', time: 10000 },
+      entregando: { next: 'entregue', time: 8000 },
+    };
+
+    const currentStep = timings[status as keyof typeof timings];
+
+    if (currentStep) {
+      const timer = setTimeout(() => {
+        updateOrderStatus(id, currentStep.next);
+      }, currentStep.time);
+      return () => clearTimeout(timer);
+    }
+
+  }, [id, status]);
+
   return (
     <div key={order.id}>
       <Card className="flex flex-col w-full">
-        <div className='flex justify-between'>
+        <div className="flex justify-between">
           <h2 className="font-bold text-xl">Pedido #{order.id}</h2>
           <span
             className={`px-3 py-1 rounded-full font-bold text-sm ${statusColors[order?.status || 'pendente']}`}

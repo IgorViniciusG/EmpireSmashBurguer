@@ -3,13 +3,13 @@ import { PurchaseSummary } from './PurchaseSummary';
 import { useEffect, useState } from 'react';
 import { getMenuItems } from '../../services/getMenuItems';
 import { useParams } from 'react-router';
-import { Container } from '../Container';
 
 import type { ExtrasType } from '../../types/ExtrasType';
 import type { DonenessType } from '../../types/DonenessType';
 
 import { Bag } from '../Bag';
 import { useBagContext } from '../../contexts/BagContext/hooks';
+import { Container } from '../Container';
 
 export function ProductDetails() {
   const { id } = useParams();
@@ -67,10 +67,12 @@ export function ProductDetails() {
   }
 
   return (
-    <Container>
+    <Container className="my-5">
       <Bag />
-      <div className="grid grid-cols-1 md:grid-cols-12 my-5">
-        <div className="col-span-1 md:col-span-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-8">
+
+        <div className="md:col-span-8">
+
           <ItemCustomizer
             productInfo={product}
             onChangeDoneness={handleDonenessChange}
@@ -82,7 +84,9 @@ export function ProductDetails() {
           />
         </div>
 
-        <div className="col-span-1 md:col-span-4 h-fit sticky top-37 my-12">
+
+        <div className="md:col-span-4 h-fit md:sticky md:top-32 mt-4 md:mt-0 pb-10">
+         
           <PurchaseSummary
             bagItem={bagItem!}
             productInfo={product}

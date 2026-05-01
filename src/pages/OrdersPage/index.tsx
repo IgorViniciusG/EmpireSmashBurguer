@@ -11,25 +11,39 @@ export function OrdersPage() {
   const { user } = useAuthContext();
 
   useEffect(() => {
-    async function fecthMyOrders() {
-      if (!user) return;
+    if (!user) return;
+
+    const fetchMyOrders = async () => {
       const { data, error } = await supabase
         .from('Orders')
         .select('*')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
-      if (error) {
-        toast.error('Erro ao buscar pedidos');
-      } else if (data) {
-        setOrder(data);
-      }
-    }
+      if (error) toast.error('Erro ao buscar pedidos');
+      else if (data) setOrder(data);
+    };
 
-    fecthMyOrders();
+    fetchMyOrders();
+
+    const channel = supabase
+      .channel('orders-realtime')
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'Orders',
+          filter: `user_id=eq.${user.id}`,
+        },
+        () => fetchMyOrders(),
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [user]);
-
- 
 
   return (
     <Container>
