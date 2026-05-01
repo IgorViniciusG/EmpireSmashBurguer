@@ -1,19 +1,15 @@
-import { API_URL } from './api';
+
+import db from '../db.json';
+
 
 export const getBurguers = async () => {
-  const burgersResponse = await fetch(`${API_URL}/burguers`);
-  const burguersData = await burgersResponse.json();
-  return burguersData;
+  return db.Burguers;
 };
 
 export const getCombos = async () => {
-  const combosResponse = await fetch(`${API_URL}/combos`);
-  const combosData = await combosResponse.json();
-  return combosData;
+  return db.combos; 
 };
 
 export const getSides = async () => {
-  const sidesResponse = await fetch(`${API_URL}/sides`);
-  const sidesData = await sidesResponse.json();
-  return sidesData;
-};
+  return db.sides;
+}
