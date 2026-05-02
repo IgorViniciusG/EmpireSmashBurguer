@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AddressForm } from '../../components/Auth/AddressForm';
-import { Container } from '../../components/Container';
-import { AddressCard } from '../../components/AddressCard';
+import { Container } from '../../components/layout/Container';
+import { AddressCard } from '../../components/PerfilPageComponents/AddressCard';
 import { supabase } from '../../services/supabase';
 import { useAuthContext } from '../../contexts/AuthContext/hooks';
 import { toast } from 'sonner';
@@ -14,7 +14,6 @@ export function AddressPage() {
   const [addresses, setAddress] = useState<Address[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [addressToEdit, setAddressToEdit] = useState<Address | null>(null);
-
 
   const fetchAddresses = useCallback(async () => {
     if (!user) return;
@@ -36,7 +35,6 @@ export function AddressPage() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchAddresses();
-
   }, [fetchAddresses]);
 
   return (
@@ -84,7 +82,6 @@ export function AddressPage() {
         {isLoading ? (
           <p className="text-gray-500">Buscando seus endereços...</p>
         ) : (
-        
           addresses.map((address) => (
             <AddressCard
               key={address.id}

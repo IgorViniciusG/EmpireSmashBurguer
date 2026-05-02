@@ -1,8 +1,9 @@
-import { Bag } from '../../components/Bag';
-import { CartSummary } from '../../components/CartSummary';
-import { Container } from '../../components/Container';
-import { Menu } from '../../components/Menu/Menu';
-import { StoreInfos } from '../../components/StoreInfos/StoreInfos';
+
+import { Bag } from "../../components/checkout/Bag";
+import { CartSummary } from "../../components/checkout/BagSummary";
+import { Container } from "../../components/layout/Container";
+import { Menu } from "../../components/layout/Menu/Menu";
+import { StoreInfos } from "../../components/products/StoreInfos";
 
 export function Home() {
   return (

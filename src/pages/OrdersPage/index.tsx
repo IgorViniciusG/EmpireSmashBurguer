@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Container } from '../../components/Container';
-import { OrderCard } from '../../components/OrderCard';
+import { Container } from '../../components/layout/Container';
+
 import { supabase } from '../../services/supabase';
 import { useAuthContext } from '../../contexts/AuthContext/hooks';
 import { toast } from 'sonner';
 import type { OrderType } from '../../types/OrderType';
+import { OrderCard } from '../../components/orders/OrderCard';
 
 export function OrdersPage() {
   const [orders, setOrder] = useState<OrderType[]>([]);

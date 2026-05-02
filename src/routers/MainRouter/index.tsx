@@ -1,7 +1,7 @@
 import { Routes, Route, BrowserRouter } from 'react-router';
 import { Home } from '../../pages/Home';
 import { ProductPage } from '../../pages/ProductPage';
-import { Header } from '../../components/Header';
+import { Header } from '../../components/layout/Header';
 import { OrdersPage } from '../../pages/OrdersPage';
 import { OrderDetailsPage } from '../../pages/OrderDetailsPage';
 import { Register } from '../../pages/Register';
@@ -24,8 +24,8 @@ export function MainRouter() {
           <Route path="/Pedidos" element={<OrdersPage />} />
           <Route path="/Pedidos/:id" element={<OrderDetailsPage />} />
           <Route path="/Endereços" element={<AddressPage />} />
+          <Route path="/Perfil" element={<PerfilPage />} />
         </Route>
-        <Route path="/Perfil" element={<PerfilPage />} />
       </Routes>
     </BrowserRouter>
   );

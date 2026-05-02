@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router';
-import { Card } from '../../Card';
-import { Container } from '../../Container';
+import { Card } from '../../UI/Card';
+import { Container } from '../../layout/Container';
 import { Input } from '../../UI/Inputs';
 
 import z from 'zod';

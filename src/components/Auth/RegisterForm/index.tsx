@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router';
-import { Card } from '../../Card';
-import { Container } from '../../Container';
+import { Card } from '../../UI/Card';
+import { Container } from '../../layout/Container';
 import { Input } from '../../UI/Inputs';
 
 import z from 'zod';
@@ -42,7 +42,7 @@ export function RegisterForm() {
 
   async function handleCreateRegister(formData: CreateRegisterSchema) {
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
@@ -59,7 +59,6 @@ export function RegisterForm() {
         return;
       }
 
-      console.log('Usuário criado:', data);
       toast.success('Conta criada com sucesso! Verifique seu e-mail.');
       navigate('/');
     } catch (error) {

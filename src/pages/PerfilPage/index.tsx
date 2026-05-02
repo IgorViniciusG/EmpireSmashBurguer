@@ -1,4 +1,4 @@
-import { Container } from '../../components/Container';
+import { Container } from '../../components/layout/Container';
 import { useAuthContext } from '../../contexts/AuthContext/hooks';
 import { useEffect, useState } from 'react';
 import { supabase } from '../../services/supabase';
@@ -59,7 +59,6 @@ export function PerfilPage() {
   return (
     <Container>
       <div className="mt-10 mb-6">
-
         <h1 className="font-bold text-3xl">
           Olá, {profile?.name || user?.user_metadata?.name} 👋
         </h1>
@@ -68,9 +67,7 @@ export function PerfilPage() {
         </p>
       </div>
 
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-
         {user && (
           <PersonalDataCard
             user={user}
@@ -79,9 +76,7 @@ export function PerfilPage() {
           />
         )}
 
-
         <div className="flex flex-col gap-6">
-        
           <PersonalAddressCard address={address} onSetAddress={setAddress} />
 
           <PersonalSecurityCard />
