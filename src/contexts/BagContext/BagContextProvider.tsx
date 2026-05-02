@@ -1,11 +1,22 @@
-import { useReducer, type PropsWithChildren } from 'react';
-import { BagContext, initialState } from '.';
+import { useEffect, useReducer, type PropsWithChildren } from 'react';
+import { BagContext } from '.';
 import { BagReducer } from './BagReducer';
 import { BagActionsType } from './BagActions';
 import type { BagItensType } from '../../types/BagItensType';
 
+const getInitialState = () => {
+  if (typeof window === 'undefined') return [];
+
+  const storageBag = localStorage.getItem('@EmpireSmash:bag');
+  return storageBag ? JSON.parse(storageBag) : [];
+};
+
 export function BagContextProvider({ children }: PropsWithChildren) {
-  const [state, dispatch] = useReducer(BagReducer, initialState);
+  const [state, dispatch] = useReducer(BagReducer, [], getInitialState);
+
+  useEffect(() => {
+    localStorage.setItem('@EmpireSmash:bag', JSON.stringify(state));
+  }, [state]);
 
   const addToBag = (item: BagItensType) => {
     dispatch({

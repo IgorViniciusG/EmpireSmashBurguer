@@ -6,16 +6,16 @@ import { supabase } from '../../../services/supabase';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import type { OrderType } from '../../../types/OrderType';
-import type { Address } from '../../../types/AddressType';
+
 import { ArrowLeft, MapPin } from 'lucide-react';
 import { OrderTracker } from '../OrderTracker';
+import { formatDate } from '../../../utils/formatDate';
 
 export function OrderDetails() {
   const { id } = useParams();
   const { user } = useAuthContext();
 
   const [order, setOrder] = useState<OrderType>();
-  const [address, setAddress] = useState<Address>();
 
   useEffect(() => {
     async function fecthOrder() {
@@ -36,26 +36,6 @@ export function OrderDetails() {
     fecthOrder();
   }, [user, id]);
 
-  useEffect(() => {
-    async function fetchAddress() {
-      if (!user) return;
-      const { data: defaultAddress, error } = await supabase
-        .from('Address')
-        .select('*')
-        .eq('user_id', user?.id)
-        .eq('is_default', true)
-        .single();
-
-      if (error) {
-        toast.error(`Erro ao buscar endereços: ${error.message}`);
-      } else {
-        setAddress(defaultAddress);
-      }
-    }
-
-    fetchAddress();
-  }, [user]);
-
   return (
     <Container>
       <Link
@@ -69,7 +49,9 @@ export function OrderDetails() {
       <Card>
         <div>
           <h1 className="font-bold text-2xl">Pedido #{order?.id}</h1>
-          <p className="text-gray-600">Realizado em {order?.created_at}</p>
+          <p className="text-gray-600">
+            Realizado em {formatDate(order?.created_at)}
+          </p>
         </div>
       </Card>
 
@@ -119,17 +101,33 @@ export function OrderDetails() {
             </span>
             <h1 className="text-lg font-black">Endereço de Entrega</h1>
           </div>
+          {order?.delivery_address ? (
+            <div className="font-medium text-gray-600 space-y-1">
+              <p className="text-gray-800 font-semibold">
+                {order.delivery_address.street}, {order.delivery_address.number}
+              </p>
 
-          <div className="font-medium text-gray-600 space-y-1">
-            <p className="text-gray-800 font-semibold">
-              {address?.street}, {address?.number}
+              {order.delivery_address.complement && (
+                <p className="text-sm text-gray-500">
+                  {order.delivery_address.complement}
+                </p>
+              )}
+
+              <p>{order.delivery_address.neighborhood}</p>
+
+              <p>
+                {order.delivery_address.city} - {order.delivery_address.state}
+              </p>
+
+              <p className="text-gray-500 mt-2 text-sm">
+                CEP: {order.delivery_address.cep}
+              </p>
+            </div>
+          ) : (
+            <p className="text-gray-400 italic text-sm">
+              Aguardando dados do endereço...
             </p>
-            <p>{address?.neighborhood}</p>
-            <p>
-              {address?.city} - {address?.state}
-            </p>
-            <p className="text-gray-500 mt-2 text-sm">CEP: {address?.cep}</p>
-          </div>
+          )}
         </Card>
       </div>
     </Container>

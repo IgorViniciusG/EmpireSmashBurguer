@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import type { OrderType } from '../../../types/OrderType';
 import { updateOrderStatus } from '../../../services/orderServices';
 import { Card } from '../../UI/Card';
+import { formatDate } from '../../../utils/formatDate';
 
 interface OrderProps {
   order: OrderType;
@@ -58,7 +59,9 @@ export function OrderCard({ order }: OrderProps) {
             {statusLabels[order?.status || 'pendente']}
           </span>
         </div>
-        <p className="text-sm text-gray-500 mt-1 mb-4">{order.created_at}</p>
+        <p className="text-sm text-gray-500 mt-1 mb-4">
+          {formatDate(order.created_at)}
+        </p>
         <h3>Itens:</h3>
         <div>
           {order.items.map((item) => (

@@ -1,16 +1,14 @@
 import { toast } from 'sonner';
-
-import { useAuthContext } from '../contexts/AuthContext/hooks';
-import { useOrderContext } from '../contexts/OrderContext/hooks';
-import { useNavigate } from 'react-router';
-import { useBagContext } from '../contexts/BagContext/hooks';
 import { supabase } from '../services/supabase';
+import { useNavigate } from 'react-router';
+import { useAuthContext } from '../contexts/AuthContext/hooks';
+import { useBagContext } from '../contexts/BagContext/hooks';
+import { useOrderContext } from '../contexts/OrderContext/hooks';
 
 export function useCheckout() {
   const { user } = useAuthContext();
   const { addOrder } = useOrderContext();
   const { state, clearBag } = useBagContext();
-
   const navigate = useNavigate();
 
   const totalPrice = state
@@ -18,16 +16,14 @@ export function useCheckout() {
     .toFixed(2);
 
   async function handleFinalizeOrder() {
-    const { data: defaultAddress, error: addressError } = await supabase
+    const { data: address, error: addressError } = await supabase
       .from('Address')
-      .select('id')
+      .select('*')
       .eq('user_id', user?.id)
       .eq('is_default', true)
       .single();
 
-    console.log(defaultAddress);
-
-    if (addressError || !defaultAddress) {
+    if (addressError || !address) {
       toast.error(
         'Quase lá! Escolha um endereço de entrega antes de finalizar.',
       );
@@ -43,7 +39,16 @@ export function useCheckout() {
 
     const newOrder = {
       user_id: user.id,
-      address_id: defaultAddress.id,
+      address_id: address.id,
+      delivery_address: {
+        street: address.street,
+        number: address.number,
+        complement: address.complement,
+        neighborhood: address.neighborhood,
+        city: address.city,
+        state: address.state,
+        cep: address.cep,
+      },
       items: state,
       total: totalPrice,
       status: 'pendente',

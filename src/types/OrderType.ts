@@ -1,3 +1,4 @@
+import type { Address } from './AddressType';
 import type { BagItensType } from './BagItensType';
 
 export type OrderType = {
@@ -8,4 +9,5 @@ export type OrderType = {
   total: number;
   status: 'pendente' | 'preparando' | 'entregando' | 'entregue' | 'cancelado';
   created_at: string;
+  delivery_address: Address;
 };

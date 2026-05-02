@@ -30,7 +30,7 @@ export function AddressCard({
   const removeAddress = async () => {
     const { error } = await supabase
       .from('Address')
-      .delete()
+      .update({ active: false })
       .eq('id', address.id);
 
     if (error) {
@@ -158,7 +158,13 @@ export function AddressCard({
                 Cancelar
               </button>
               <button
-                onClick={removeAddress}
+                onClick={() => {
+                  if (address.is_default) {
+                    toast.error('Não é possivel remover o endereço padrão!');
+                    return;
+                  }
+                  removeAddress();
+                }}
                 className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors"
               >
                 Sim, excluir
