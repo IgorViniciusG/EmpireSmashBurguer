@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AddressForm } from '../../components/Auth/AddressForm';
 import { Container } from '../../components/layout/Container';
-import { AddressCard } from '../../components/PerfilPageComponents/AddressCard';
+import { AddressCard } from '../../components/profile/AddressCard';
 import { supabase } from '../../services/supabase';
 import { useAuthContext } from '../../contexts/AuthContext/hooks';
 import { toast } from 'sonner';

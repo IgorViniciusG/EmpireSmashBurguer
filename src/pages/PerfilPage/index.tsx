@@ -8,9 +8,9 @@ import type { Address } from '../../types/AddressType';
 import {
   PersonalDataCard,
   type ProfileFormData,
-} from '../../components/PerfilPageComponents/PersonalDataCard';
-import { PersonalAddressCard } from '../../components/PerfilPageComponents/PersonalAddressCard';
-import { PersonalSecurityCard } from '../../components/PerfilPageComponents/PersonalSecurityCard';
+} from '../../components/profile/PersonalDataCard';
+import { PersonalAddressCard } from '../../components/profile/PersonalAddressCard';
+import { PersonalSecurityCard } from '../../components/profile/PersonalSecurityCard';
 
 export function PerfilPage() {
   const { user } = useAuthContext();
