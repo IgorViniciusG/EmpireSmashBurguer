@@ -23,17 +23,17 @@ export function useCheckout() {
       .eq('is_default', true)
       .single();
 
+    if (!user) {
+      toast.error('Realize o Login para finalizar o Pedido');
+      navigate('/Login');
+      return;
+    }
+
     if (addressError || !address) {
       toast.error(
         'Quase lá! Escolha um endereço de entrega antes de finalizar.',
       );
       navigate('/Endereços');
-      return;
-    }
-
-    if (!user) {
-      toast.error('Realize o Login para finalizar o Pedido');
-      navigate('/Login');
       return;
     }
 
