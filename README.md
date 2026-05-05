@@ -61,8 +61,6 @@ Este projeto não é apenas uma interface bonita; ele resolve problemas reais de
 
 ## 📱 Demonstração Visual
 
-*(Adicione suas capturas de tela dentro da pasta `/docs` do repositório)*
-
 | Tela Inicial (Cardápio) | Customização do Lanche | Acompanhamento (Realtime) |
 | :---: | :---: | :---: |
 | <img src="./docs/home.png" width="250" alt="Home"/> | <img src="./docs/customizer.png" width="250" alt="Customizer"/> | <img src="./docs/tracker.png" width="250" alt="Tracker"/> |
@@ -85,12 +83,12 @@ Para rodar este projeto localmente, você precisará do [Node.js](https://nodejs
 3. **Configure as variáveis de ambiente:**
     Crie um arquivo .env na raiz do projeto com as seguintes chaves:
     ```Snippet de código
-        VITE_SUPABASE_URL=sua_url_do_supabase
-        VITE_SUPABASE_ANON_KEY=sua_chave_anonima_do_supabase
+    VITE_SUPABASE_URL=sua_url_do_supabase
+    VITE_SUPABASE_ANON_KEY=sua_chave_anonima_do_supabase
 
 4. **Inicie o servidor de desenvolvimento:**
-      ```Bash
-         npm run dev
+   ```Bash
+   npm run dev
 
 **Banco de Dados e Segurança**
   A infraestrutura utiliza o Supabase para persistência de dados.
