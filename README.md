@@ -78,4 +78,40 @@ Para rodar este projeto localmente, você precisará do [Node.js](https://nodejs
    git clone [https://github.com/seu-usuario/empire-smash-burgers.git](https://github.com/seu-usuario/empire-smash-burgers.git)
    cd empire-smash-burgers
 
-2.
+2. **Instale as dependências:**
+    ```bash
+    npm install
+    
+3. **Configure as variáveis de ambiente:**
+    Crie um arquivo .env na raiz do projeto com as seguintes chaves:
+    ```Snippet de código
+        VITE_SUPABASE_URL=sua_url_do_supabase
+        VITE_SUPABASE_ANON_KEY=sua_chave_anonima_do_supabase
+
+4. **Inicie o servidor de desenvolvimento:**
+      ```Bash
+         npm run dev
+
+**Banco de Dados e Segurança**
+  A infraestrutura utiliza o Supabase para persistência de dados.
+  
+  - Realtime: Habilitado para a tabela de pedidos, permitindo que o cliente receba atualizações de status sem recarregar a página.
+  
+  - Row Level Security (RLS): Políticas configuradas para garantir que usuários acessem apenas os dados permitidos, mantendo a integridade do sistema.
+  
+  ⚠️ **Desafios Técnicos**
+  - Sincronização de Estado: Manter o carrinho consistente entre diferentes sessões e garantir que atualizações de quantidade não dupliquem itens com customizações distintas.
+  
+  - Concorrência em Tempo Real: Lidar com mudanças de status no banco de dados e refletir na UI de forma instantânea sem causar conflitos de interface.
+  
+  - Lógica de Efeitos Colaterais: Controle rigoroso de chamadas assíncronas para evitar estados inconsistentes durante a transição de telas.
+
+👨‍💻 **Autor**
+Igor Vinicius Gonçalves da Silva
+Estudante de Análise e Desenvolvimento de Sistemas/ Desenvolvedor FullStack
+
+🔗 **Links**
+**[Demo](https://empire-smash-burguer.vercel.app/)**
+
+**[Repositório GitHub](https://github.com/IgorViniciusG/EmpireSmashBurguer)**
+      
