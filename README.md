@@ -1,74 +1,79 @@
-# React + TypeScript + Vite
+# 🍔 Empire Smash Burgers - Sistema de Pedidos e Cardápio Digital
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bem-vindo ao repositório do **Empire Smash Burgers**! Este é um projeto Full-Stack focado no Front-end que simula o ecossistema completo de uma hamburgueria moderna. Desde a escolha do lanche até o acompanhamento em tempo real da entrega, a aplicação foi desenhada para oferecer uma Experiência de Usuário (UX) impecável, inspirada nos principais aplicativos de delivery do mercado.
 
-Currently, two official plugins are available:
+![Status do Projeto](https://img.shields.io/badge/Status-Finalizado-green)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Sumário
+- [Funcionalidades](#-funcionalidades)
+- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [Arquitetura e Destaques Técnicos](#-arquitetura-e-destaques-técnicos)
+- [Demonstração Visual](#-demonstração-visual)
+- [Como Executar o Projeto](#-como-executar-o-projeto)
+- [Configuração do Banco de Dados](#-configuração-do-banco-de-dados-supabase)
+- [Autor](#-autor)
 
-## React Compiler
+---
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## 🚀 Funcionalidades
 
-## Expanding the ESLint configuration
+- **Cardápio Dinâmico:** Listagem de produtos dividida por categorias (Burguers, Combos, Acompanhamentos) com renderização otimizada.
+- **Customizador de Produtos:** Seleção de "Ponto da Carne" e adição de "Extras" (Bacon, Cheddar, etc.) com cálculo dinâmico de preços.
+- **Gerenciamento de Sacola:** Uso de Context API para adicionar itens, alterar quantidades, editar customizações de itens já na sacola e calcular o total do pedido.
+- **Checkout e Histórico:** Criação de pedidos vinculados ao usuário autenticado.
+- **Rastreamento em Tempo Real (Realtime):** Integração com WebSockets do Supabase. A tela de acompanhamento reage instantaneamente às mudanças de status no banco de dados.
+- **Simulador de Linha de Produção:** Lógica inteligente com `useEffect` e `setTimeout` que simula o fluxo de uma cozinha, avançando o status do pedido automaticamente (Aguardando ➔ Preparando ➔ A Caminho ➔ Entregue).
+- **Design Responsivo (Mobile-First):** Layout construído com Tailwind CSS garantindo fluidez em celulares, tablets e desktops.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tecnologias Utilizadas
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Front-end
+- **[React](https://reactjs.org/) + [Vite](https://vitejs.dev/):** Biblioteca principal e bundler ultrarrápido.
+- **[TypeScript](https://www.typescriptlang.org/):** Tipagem estática para maior segurança e previsibilidade do código.
+- **[Tailwind CSS](https://tailwindcss.com/):** Estilização utilitária para construção rápida e consistente de interfaces.
+- **[React Router](https://reactrouter.com/):** Navegação entre as páginas da aplicação.
+- **[Lucide React](https://lucide.dev/):** Biblioteca de ícones moderna e leve.
+- **[Sonner](https://sonner.emilkowal.ski/):** Sistema de notificações (toasts) elegante e acessível.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Back-end & BaaS
+- **[Supabase](https://supabase.com/):** Banco de dados PostgreSQL, Autenticação de Usuários e sistema Realtime.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧠 Arquitetura e Destaques Técnicos
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# EmpireSmashBurguer
+Este projeto não é apenas uma interface bonita; ele resolve problemas reais de engenharia de software no Front-end:
+
+1. **Sincronização Assíncrona e Prevenção de Memory Leaks:** 
+   No simulador de pedidos, foram implementadas rotinas de `setTimeout` dentro de `useEffect` com rigoroso uso de funções de limpeza (`clearTimeout`) para evitar vazamentos de memória na desmontagem dos componentes.
+2. **Desestruturação de Dependências:**
+   Aplicação de boas práticas do ESLint, desestruturando objetos antes de passá-los para arrays de dependências de Hooks, evitando re-renderizações infinitas.
+3. **Z-Index e Stacking Context:**
+   Resolução de conflitos de camadas no CSS para garantir que elementos pegajosos (`sticky`) e botões flutuantes (Sacola) se sobreponham de forma correta e amigável em dispositivos móveis.
+
+---
+
+## 📱 Demonstração Visual
+
+*(Adicione suas capturas de tela dentro da pasta `/docs` do repositório)*
+
+| Tela Inicial (Cardápio) | Customização do Lanche | Acompanhamento (Realtime) |
+| :---: | :---: | :---: |
+| <img src="./docs/home.png" width="250" alt="Home"/> | <img src="./docs/customizer.png" width="250" alt="Customizer"/> | <img src="./docs/tracker.png" width="250" alt="Tracker"/> |
+
+---
+
+## ⚙️ Como Executar o Projeto
+
+Para rodar este projeto localmente, você precisará do [Node.js](https://nodejs.org/) instalado em sua máquina.
+
+1. **Clone o repositório:**
+   ```bash
+   git clone [https://github.com/seu-usuario/empire-smash-burgers.git](https://github.com/seu-usuario/empire-smash-burgers.git)
+   cd empire-smash-burgers
