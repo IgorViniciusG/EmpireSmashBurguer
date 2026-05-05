@@ -77,3 +77,5 @@ Para rodar este projeto localmente, você precisará do [Node.js](https://nodejs
    ```bash
    git clone [https://github.com/seu-usuario/empire-smash-burgers.git](https://github.com/seu-usuario/empire-smash-burgers.git)
    cd empire-smash-burgers
+
+2.
